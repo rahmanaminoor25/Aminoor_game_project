@@ -79,45 +79,69 @@ def colour_code(x,y):
         
 
 #-------------------------------------------------------------------------------------
-
-print("Wordle!")
-print("Can you guess the word? you have upto 6 attempts to guess correctly!")
-
-#user inputs/game
-
 #defining the colours 
 colour_green = '\033[92m'  # Green
 colour_yellow = '\033[93m' # Yellow
 colour_end = '\033[0m'     # Reset color back to default
 
+#user inputs/game
+print("Wordle!")
+print("Can you guess the word? you have upto 6 attempts to guess correctly!")
 
-attempts = 6
+#difficulty code block
+n = 0
+while n<1:
+    difficulty = str(input("choose difficulty for game (easy/normal/hard):")).lower()
+    if difficulty =='easy':
+       attempts = 8
+       n+=1
+    elif difficulty=='normal':
+       attempts = 6
+       n+=1
+    else:
+       print("please enter either 'easy','normal' or 'hard")
+
+
+
 computer_pick = str(random.choices(word_list)[0])
 #print(computer_pick)
 #computer_pick_disc = [i for i in computer_pick.lower()]
 
 while attempts > 0:
         guess = str(input("Type your guess:")).lower().strip()
-        guess_disc = [i for i in guess.lower()] #seperated/discreatized the characters in a list
 
+        #seperated/discreatized the characters in a list
+        guess_disc = [i for i in guess.lower()] 
+        
+        #count number of attempts used
+        attempt_count = 0
+
+        '''this verifies the user enters a 5 lettered word that is found in our dictionary.
+        Dictionary contains over 15,000 words'''  
         if guess not in word_list_total:
             print ('Please enter a 5 lettered word that exists')
         else:
+            #if user enters correct word
             if guess==computer_pick:
                 print("You guessed correctly! well done!")
                 for i in range(len(guess_disc)):
                     print(f"{colour_green}{guess_disc[i]}{colour_end}", end='|')
                 print()
+                score = 1
+                attempts_used = attempt_count + 1
+                print("You used %d attempts"%(attempts_used) )
                 break       
             else:
+                #user enters incorrect word
                 attempts-=1
+                attempt_count+=1
                 #print('\nYou have', attempts, 'attempts left')
                 colour_code(guess,computer_pick)
 
 
 if attempts == 0:
     print("better luck next time! the word was:",computer_pick)
-
+    losses = 1
 
         
     
