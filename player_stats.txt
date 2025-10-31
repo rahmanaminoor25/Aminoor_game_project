@@ -1,0 +1,2 @@
+name-----------------win/loss------------No of attempts to win-------------Word
+RIMON     lost       not applicable     leant

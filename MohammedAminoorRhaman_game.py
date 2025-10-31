@@ -74,9 +74,37 @@ def colour_code(x,y):
 
     print() # Adds a newline after the guess is printed
 
- #------------------------------------------------------------------------------------------      
+#------------------------------------------------------------------------------------------      
+#Saving player stats function
 
-        
+def save_stats(result,attempts_used,computer_pick):
+
+
+    name = str(input("enter your full name:")).upper()
+
+    try:
+        f = open("player_stats.txt", "x")
+        file = open("player_stats.txt", "w")
+        entry_headers = "name"+"     "+"win/loss"+"      "+"No of attempts to win"+"      "+"Word"+"\n"
+        file.write(entry_headers)
+        file.close()
+
+    except:
+        print('There already exists a player_stats file')
+
+    try:
+        if result=="won":
+            file = open("player_stats.txt", "a")
+            entry = name+"  "+result+"    "+attempts_used+"     "+computer_pick+"\n"
+            file.write(entry)
+            file.close()
+        else:
+            file = open("player_stats.txt", "a")
+            entry = name+"     "+result+"       "+attempts_used+"     "+computer_pick+"\n"
+            file.write(entry)
+            file.close()
+    except Exception as e:
+        print("An error occurred while saving stats:", e)
 
 #-------------------------------------------------------------------------------------
 #defining the colours 
@@ -84,7 +112,7 @@ colour_green = '\033[92m'  # Green
 colour_yellow = '\033[93m' # Yellow
 colour_end = '\033[0m'     # Reset color back to default
 
-#user inputs/game
+#Welcome print
 print("Wordle!")
 print("Can you guess the word? you have upto 6 attempts to guess correctly!")
 
@@ -102,10 +130,12 @@ while n<1:
        print("please enter either 'easy','normal' or 'hard")
 
 
-
+#computer chooses a random word
 computer_pick = str(random.choices(word_list)[0])
-#print(computer_pick)
-#computer_pick_disc = [i for i in computer_pick.lower()]
+
+
+#count number of attempts used
+attempt_count = 0
 
 while attempts > 0:
         guess = str(input("Type your guess:")).lower().strip()
@@ -113,8 +143,7 @@ while attempts > 0:
         #seperated/discreatized the characters in a list
         guess_disc = [i for i in guess.lower()] 
         
-        #count number of attempts used
-        attempt_count = 0
+
 
         '''this verifies the user enters a 5 lettered word that is found in our dictionary.
         Dictionary contains over 15,000 words'''  
@@ -127,8 +156,8 @@ while attempts > 0:
                 for i in range(len(guess_disc)):
                     print(f"{colour_green}{guess_disc[i]}{colour_end}", end='|')
                 print()
-                score = 1
-                attempts_used = attempt_count + 1
+                result = "won"
+                attempts_used = str(attempt_count + 1)
                 print("You used %d attempts"%(attempts_used) )
                 break       
             else:
@@ -141,9 +170,42 @@ while attempts > 0:
 
 if attempts == 0:
     print("better luck next time! the word was:",computer_pick)
-    losses = 1
+    result = 'lost'
+    attempts_used="not applicable"
 
-        
+#-----------------------------------------------------------------------------------------------
+#recording scores
+
+save = str(input("Would you like to save your stats? (yes/no):")).lower()
+
+
+if save=="yes":
+    save_stats(result,attempts_used,computer_pick)
+
+else:
+    print("thanks for playing!\n")
+    
+
+
+
+
+
+
+
+
+    
+    
+
+
+
+
+
+
+
+
+
+
+
     
 
 
