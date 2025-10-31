@@ -1,15 +1,33 @@
+#WORDLE GAME CODE!
+
+'''IMPORTANT: ensure that the files "filtered-wordle-words.csv" and "words_alpha.txt","r"
+have been downloaded & are on the current file '''
+
+#-------------------------------------------------------------------------------------------
+
+
 #Establishing list of words which contain only 6 characters and imports
+
+
 
 
 '''this file contains all the words that have been used for wordle, and will constitute
 the word bank from which the computer chooses from '''
-with open("filtered-wordle-words.csv","r") as file:
+
+try:
+   with open("filtered-wordle-words.csv","r") as file:
     word_list = [i.strip().lower() for i in file]
+except Exception as w:
+        print("An error occurred while opening 'filtered-wordle-words.csv' :", w)
 
-#this word file contains a large dictionary of words.
-with open("words_alpha.txt","r") as file2:
-    word_list2 = [i.strip().lower() for i in file2]
+'''this word file contains a large dictionary of words.'''
+try:
+    with open("words_alpha.txt","r") as file2:
+      word_list2 = [i.strip().lower() for i in file2]
+except Exception as d:
+        print("An error occurred while opening 'words_alpha.txt' :", d)
 
+#filter word_list2 for only words with 5 characters only
 word_list_total = [i for i in word_list2 if len(i)==5]
 
  
@@ -125,6 +143,9 @@ while n<1:
        n+=1
     elif difficulty=='normal':
        attempts = 6
+       n+=1
+    elif difficulty=='hard':
+       attempts = 4
        n+=1
     else:
        print("please enter either 'easy','normal' or 'hard")

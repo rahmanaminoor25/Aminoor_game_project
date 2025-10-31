@@ -1,2 +1,3 @@
-name-----------------win/loss------------No of attempts to win-------------Word
-RIMON     lost       not applicable     leant
+name     win/loss      No of attempts to win      Word
+AMINOOR RHAMAN     lost       not applicable     aping
+RIMON RHAMAN     lost       not applicable     magic
