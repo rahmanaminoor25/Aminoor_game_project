@@ -1,9 +1,16 @@
 #Establishing list of words which contain only 6 characters and imports
 
+
+'''this file contains all the words that have been used for wordle, and will constitute
+the word bank from which the computer chooses from '''
 with open("filtered-wordle-words.csv","r") as file:
     word_list = [i for i in file]
 
+#this word file contains a large dictionary of words.
+with open("filtered-wordle-words.csv","r") as file2:
+    word_list2 = [i for i in file2]
 
+word_list_total = [i for i in word_list2 if len(i)==6]
  
 import random
 
@@ -71,15 +78,17 @@ def colour_code(x,y):
         
 
 #-------------------------------------------------------------------------------------
- #user inputs
+
 print("Wordle!")
 print("Can you guess the word? you have upto 6 attempts to guess correctly!")
 
+ #user inputs/game
+ 
 attempts = 6
 computer_pick = str(random.choices(word_list)[0])
-print(computer_pick)
+#print(computer_pick)
 #computer_pick_disc = [i for i in computer_pick.lower()]
-'''
+
 while attempts > 0:
         guess = str(input("Type your guess:"))
         guess_disc = [i for i in guess.lower()] #seperated/discreatized the characters in a list
@@ -92,7 +101,8 @@ while attempts > 0:
             #print('\nYou have', attempts, 'attempts left')
             colour_code(guess,computer_pick)
 
-'''
+if attempts == 0:
+    print("better luck next time! the word was:",computer_pick)
 
 
         
